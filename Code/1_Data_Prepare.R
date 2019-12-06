@@ -1,39 +1,27 @@
 #!/usr/bin/env Rscript
 
-### TASKS: Background BEDs, intersection differential
-##### 0. Load/install packages:OK #####
+##### 0. Load/primary pkgs and args #####
 
-cat("\n Loadings & Installing packages ... \n")
-mypkgs <- c("utils", "nVennR", "readxl", "optparse","R.utils","BiocManager","GenomicFeatures", "limma", "sva")
-logicals <- is.element(mypkgs, installed.packages()[,1])
-base::sapply(mypkgs[logicals], FUN = function(x){  suppressPackageStartupMessages(library(x, character.only = TRUE))})
-base::sapply(mypkgs[!logicals], FUN = function(x){
-  if(x != "GenomicFeatures" & x != "limma" & x != "sva")
-  install.packages(x)
-  if(x == "GenomicFeatures"){
-    BiocManager::install("GenomicFeatures", update = FALSE)
-  }
-  if(x == "limma"){
-    BiocManager::install("limma", update = FALSE)
-  }
-  if(x == "sva"){
-    BiocManager::install("sva", update = FALSE)
-  }
+# Primary pkgs
+mypkgs1 <- c("cowsay", "optparse")
+logicals1 <- is.element(mypkgs1, installed.packages()[,1])
+tmp <- base::sapply(mypkgs1[logicals1], FUN = function(x){  suppressPackageStartupMessages(library(x, character.only = TRUE))})
+tmp <- base::sapply(mypkgs1[!logicals1], FUN = function(x){
+    install.packages(x, repos = "https://cloud.r-project.org/")
 })
-base::sapply(mypkgs[!logicals], FUN = function(x){ suppressPackageStartupMessages(library(x, character.only = TRUE))})
+tmp <- base::sapply(mypkgs1[!logicals1], FUN = function(x){ suppressPackageStartupMessages(library(x, character.only = TRUE))})
 
-##### 1. Define args:OK #####
-
+# Arguments
 option_list = list(
-  make_option(c("-A", "--file1"), type = "character", default = NULL, help = "Dataset1 file name. First column CreIDs. Other columns quantification data.", metavar = "character"),
-  make_option(c("--condition1"), type = "character", default = NULL, help = "Dataset1 Condition vector. It representes replicates for each treatment, separated by - \n \t Conditios vector must contain all your replicates. For example (9 samples): 1) 3-6 will set a contrast between the first three replicates and the last six \n \t 2) 3-3-3 will set all possible two by two contrasts between the three treatments \n", metavar = "character"),
-  make_option(c("-B", "--file2"), type = "character", default = NULL, help = "Dataset2 file name", metavar = "character"),
+  make_option(c("-A", "--file1"), type = "character", default = NULL, help = "Dataset1 file path. First column CreIDs. Other columns quantification data.", metavar = "character"),
+  make_option(c("--condition1"), type = "character", default = NULL, help = "Dataset1 Condition vector. It representes replicates for each treatment, separated by - \n \t Condition vector must contain all your replicates. For example (9 samples): 1) 3-6 will set a contrast between the first three replicates and the last six \n \t 2) 3-3-3 will set all possible two by two contrasts between the three treatments \n", metavar = "character"),
+  make_option(c("-B", "--file2"), type = "character", default = NULL, help = "Dataset2 file path", metavar = "character"),
   make_option(c("--condition2"), type = "character", default = NULL, help = "Dataset2 Condition vector", metavar = "character"),
-  make_option(c("-C", "--file3"), type = "character", default = NULL, help = "Dataset3 file name", metavar = "character"),
+  make_option(c("-C", "--file3"), type = "character", default = NULL, help = "Dataset3 file path", metavar = "character"),
   make_option(c("--condition3"), type = "character", default = NULL, help = "Dataset3 Condition vector", metavar = "character"),
-  make_option(c("-D", "--file4"), type = "character", default = NULL, help = "Dataset4 file name", metavar = "character"),
+  make_option(c("-D", "--file4"), type = "character", default = NULL, help = "Dataset4 file path", metavar = "character"),
   make_option(c("--condition4"), type = "character", default = NULL, help = "Dataset4 Condition vector", metavar = "character"),
-  make_option(c("-E", "--file5"), type = "character", default = NULL, help = "Dataset5 file name", metavar = "character"),
+  make_option(c("-E", "--file5"), type = "character", default = NULL, help = "Dataset5 file path", metavar = "character"),
   make_option(c("--condition5"), type = "character", default = NULL, help = "Dataset5 Condition vector", metavar = "character"),
   make_option(c("-d", "--differential"), type = "logical", default = TRUE, help = "If true, differential expression limma based test is performed [default = %default]"),
   make_option(c("-s", "--sva"), type = "logical", default = FALSE, help = "If true, sva removing unwanted variation is performed. Only for n>10-15 samples datasets. [default = %default]"),
@@ -48,10 +36,39 @@ opt = parse_args(opt_parser);
 
 if (is.null(opt$file1)){
   print_help(opt_parser)
-  stop("At least one Dataset and condition vector are needed", call.=FALSE)
+  stop(say(what = "STOP: At least one dataset is needed", by = "poop"), call.=FALSE)
 }
 
-if(is.null(opt$file2)){ opt$intersect = FALSE}
+##### 1. Libs | Secondary pkgs: checks and install #####
+
+say(paste0("Welcome to DataPrepare ! ", Sys.time()), by = "rabbit", what_color = "white", by_color = "yellow")
+cat("\n Checking-installing-loading needed libs and packages ... \n")
+
+# check libs installed Linux if not install libs:DockerVictor file 
+libs <- c("libcurl4-openssl-dev" ,"libxml2-dev" ,"libssl-dev")
+tmp <- sapply(libs, USE.NAMES = F, FUN = function(x){
+  Logical <- system(paste0("ldconfig -p | grep ", x), ignore.stdout = TRUE)
+})
+if(length(libs) != length(which(tmp == 0))){ stop(say(what = "STOP: First install libs dependencies", by = "poop"))}
+
+
+mypkgs <- c("utils", "cowsay","nVennR", "readxl", "optparse","R.utils","BiocManager","GenomicFeatures", "limma", "sva")
+logicals <- is.element(mypkgs, installed.packages()[,1])
+tmp <- base::sapply(mypkgs[logicals], FUN = function(x){  suppressPackageStartupMessages(library(x, character.only = TRUE))})
+tmp <- base::sapply(mypkgs[!logicals], FUN = function(x){
+  if(x != "GenomicFeatures" & x != "limma" & x != "sva")
+  install.packages(x, repos = "https://cloud.r-project.org/")
+  if(x == "GenomicFeatures"){
+    BiocManager::install("GenomicFeatures")
+  }
+  if(x == "limma"){
+    BiocManager::install("limma")
+  }
+  if(x == "sva"){
+    BiocManager::install("sva")
+  }
+})
+tmp <- base::sapply(mypkgs[!logicals], FUN = function(x){ suppressPackageStartupMessages(library(x, character.only = TRUE))})
 
 ##### 2. Import tables and args:OK #####
 
@@ -65,7 +82,7 @@ inputs <- base::lapply(inputs, FUN = function(x){
     input <- read_excel(x, col_names = TRUE)
   }else if(length(grep(pattern = ".xlsx", x = x, fixed = TRUE)) == 1){
     input <- read_excel(x, col_names = TRUE)
-  }else(stop("Non supported format. Please try txt or excel tab separated with headers"))
+  } else{stop(say("STOP: Non supported format. Please try txt or excel tab separated with headers", by = "poop"))}
   input <- as.data.frame(input)
   if(opt$differential){ 
     if(opt$normalization == "none"){ input
@@ -76,6 +93,10 @@ inputs <- base::lapply(inputs, FUN = function(x){
   }else if(!opt$differential){ input}
 })
 
+if(length(inputs) == 1 & opt$intersect & !opt$differential){
+  cat("\n Because only one file is detected and intersect is defined as TRUE, differential is forced as TRUE \n")
+  opt$differential <- TRUE
+}
 
 ##### 3. Diff expression / sva:OK #####
 
@@ -85,9 +106,9 @@ Differential <- list()
 for(l in 1:length(inputs)){
   
   # format, args and qc
-  if(length(inputs) != length(conditions)){ stop("\n Same number of condition vectors and file inputs is required \n")}
+  if(length(inputs) != length(conditions)){ stop(say("STOP: Same number of condition vectors and file inputs is required", by = "poop"))}
   groups <- as.numeric(strsplit(conditions[[l]], split = "-")[[1]])
-  if(sum(groups) != ncol(inputs[[l]][,-1])){stop(paste0("\n Your condition vector dont match the number of replicates in", names(inputs[l])," \n"))}
+  if(sum(groups) != ncol(inputs[[l]][,-1])){stop(say(paste0("STOP: Your condition vector dont match the number of replicates in", names(inputs[l])),by = "poop"))}
   comb.contrast <- combn(1:length(groups), 2)
   cat(paste0("\n" ,names(inputs[l]), sep = ": ", length(groups), " treatments and ", ncol(comb.contrast), " two-by-two contrasts \n"))
   if(ncol(inputs[[l]][,-1]) < 12){
@@ -221,14 +242,15 @@ VictorgoestoBED <- lapply(VictorgoestoBED, FUN = function(y){
 ##### 5. Background selection:OK #####
 
 # File background is VictorgoestoBED$inputs
-cat("\n For the args defined, File background may be a good reference for your enrichments! \n")
+cat("\n File background may be a good reference for your enrichments! \n")
 
+if(length(inputs) > 1){
 if(opt$intersect){ 
   Global_background <- unique(unlist(VictorgoestoBED$inputs, use.names = F))
   VictorgoestoBED$Global_background <- Global_background
   cat("\n For the args defined, Global background may be a good reference for your enrichments! \n")
   }
-
+}
 
 if(opt$intersect & opt$differential){
   Diff_background <- unique(unlist(VictorgoestoBED$differential, use.names = F))
@@ -238,7 +260,7 @@ if(opt$intersect & opt$differential){
 
 ##### 6. Intersection:OK #####
 
-# Side_note02: In the future if file.number == 1 / intersection between condition or differential conditions 
+if(length(inputs) > 1){ 
 if(opt$intersect){
   # intersect between files
   cat("\n Intersect is defined as TRUE \n")
@@ -267,6 +289,23 @@ if(opt$differential){
   VictorgoestoBED$intersect_diff <- myV2
   }
 } else{cat("\n Intersect is defined as FALSE \n")}
+}else if(length(inputs) == 1 & length(groups[1]) == 2){
+  if(opt$differential & opt$intersect){ cat("Not enough conditions/files to do differential intersection/intersection")
+    } else{cat("\n Intersect is defined as FALSE \n")}
+}else if(length(inputs) == 1 & length(groups[1]) > 2){
+  if(opt$differential & opt$intersect){
+  myV <- nVennR::plotVenn(VictorgoestoBED$differential, nCycles = 7000, opacity = 0.2, borderWidth = 3, systemShow = T, fontScale = 2)
+  myV2 <- nVennR::listVennRegions(myV)
+  nonames <- names(myV2)
+  nonames <- sapply(nonames, USE.NAMES = F,FUN = function(x){
+    strsplit(x, split = "(", fixed = T)[[1]][2]
+  })
+  names(myV2) <- paste0("Diff_uniq_", nonames)
+  names(myV2) <- gsub(")", "", names(myV2), fixed = T)
+  names(myV2) <- gsub(", ", "", names(myV2), fixed = T)
+  VictorgoestoBED$intersect_diff <- myV2
+  } else{cat("\n Intersect is defined as FALSE \n")}  
+}
 
 ##### 7. From ID table to bed #####
 
@@ -280,7 +319,7 @@ cat("\n Computing CreIDs coherence ... \n")
 
 QC <- lapply(VictorgoestoBED$inputs, function(x){
   x %in% Transcripts$tx_name})
-if(length(which(unlist(QC,use.names = F) == FALSE)) > 0){stop("\n Something go wrong with CreIDs. Check \n")}
+if(length(which(unlist(QC,use.names = F) == FALSE)) > 0){stop(say("STOP: Something go wrong with CreIDs. Check", by = "poop"))}
 if(length(which(unlist(QC,use.names = F) == FALSE)) == 0){cat("\n Passed \n")}
 
 cat("\n Converting to .bed ... \n")
@@ -331,5 +370,5 @@ for(x in 1:length(VictorgoestoBED)){
   }
 }
 
-
+say(paste0("DataPrepare has finished ! ", Sys.time()), by = "rabbit", what_color = "white", by_color = "yellow")
 
