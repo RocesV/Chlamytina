@@ -39,20 +39,12 @@ if (is.null(opt$file1)){
   stop(say(what = "STOP: At least one dataset is needed", by = "poop"), call.=FALSE)
 }
 
-##### 1. Libs | Secondary pkgs: checks and install #####
+##### 1. Secondary pkgs: checks and install #####
 
 say(paste0("Welcome to DataPrepare ! ", Sys.time()), by = "rabbit", what_color = "white", by_color = "yellow")
 cat("\n Checking-installing-loading needed libs and packages ... \n")
 
-# check libs installed Linux if not install libs:DockerVictor file 
-libs <- c("libcurl4-openssl-dev" ,"libxml2-dev" ,"libssl-dev")
-tmp <- sapply(libs, USE.NAMES = F, FUN = function(x){
-  Logical <- system(paste0("ldconfig -p | grep ", x), ignore.stdout = TRUE)
-})
-if(length(libs) != length(which(tmp == 0))){ stop(say(what = "STOP: First install libs dependencies", by = "poop"))}
-
-
-mypkgs <- c("utils", "cowsay","nVennR", "readxl", "optparse","R.utils","BiocManager","GenomicFeatures", "limma", "sva")
+mypkgs <- c("utils", "nVennR", "readxl", "R.utils","BiocManager","GenomicFeatures", "limma", "sva")
 logicals <- is.element(mypkgs, installed.packages()[,1])
 tmp <- base::sapply(mypkgs[logicals], FUN = function(x){  suppressPackageStartupMessages(library(x, character.only = TRUE))})
 tmp <- base::sapply(mypkgs[!logicals], FUN = function(x){
