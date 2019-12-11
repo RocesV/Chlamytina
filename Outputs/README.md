@@ -5,6 +5,7 @@ It depends of the arguments defined but we can classify the outputs in 4 types:
 - *_background.bed - Possible Universes you can use to run LOLA enrichment analysis. File background is named without _background. Example: file1.bed
 - Uniq_***.bed - bed input for LOLA that comes from whole files intersection
 - Diff_uniq_***.bed - bed input for LOLA that comes from differential files intersection
+- *.pdf - LOLA enrichment results
 
 
 
