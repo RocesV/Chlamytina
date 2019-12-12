@@ -1,0 +1,12 @@
+filename	celltype	description
+5mC_merged.bed	5mC	repressive
+6mA_merged.bed	6mA	active
+H3K27ac_merged.bed	H3K27ac	active
+H3K27me3_merged.bed	H3K27me3	repressive
+H3K36me3_merged.bed	H3K36me3	active
+H3K4me2-R1_sortfilt.bed	H3K4me2	active
+H3K4me3_merged.bed	H3K4me3	active
+H3K9me3_merged.bed	H3K9me3	repressive
+nucleosome_sortfilt.bed	nucleosome	nucleosome
+PSR1_merged.bed	PSR1	active
+RNApolII_merged.bed	RNApolII	active

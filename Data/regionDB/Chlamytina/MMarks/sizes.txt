@@ -1,0 +1,12 @@
+filename	size
+5mC_merged.bed	1990
+6mA_merged.bed	26404
+H3K27ac_merged.bed	12815
+H3K27me3_merged.bed	1009
+H3K36me3_merged.bed	9943
+H3K4me2-R1_sortfilt.bed	5961
+H3K4me3_merged.bed	13102
+H3K9me3_merged.bed	10667
+nucleosome_sortfilt.bed	505864
+PSR1_merged.bed	1664
+RNApolII_merged.bed	6058
