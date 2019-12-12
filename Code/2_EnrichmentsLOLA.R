@@ -18,6 +18,11 @@ option_list = list(
   make_option(c("-C", "--file3"), type = "character", default = NULL, help = "Third BED file path", metavar = "character"),
   make_option(c("-D", "--file4"), type = "character", default = NULL, help = "Fourth BED file path", metavar = "character"),
   make_option(c("-E", "--file5"), type = "character", default = NULL, help = "Fifth file path", metavar = "character"),
+  make_option(c("-F", "--file6"), type = "character", default = NULL, help = "Sixth file path", metavar = "character"),
+  make_option(c("-G", "--file7"), type = "character", default = NULL, help = "Seventh file path", metavar = "character"),
+  make_option(c("-H", "--file8"), type = "character", default = NULL, help = "Eighth file path", metavar = "character"),
+  make_option(c("-I", "--file9"), type = "character", default = NULL, help = "Nineth file path", metavar = "character"),
+  make_option(c("-J", "--file10"), type = "character", default = NULL, help = "Tenth file path", metavar = "character"),
   make_option(c("-b", "--background"), type = "character", default = NULL, help = "Background BED file path. The set of regions tested for enrichments", metavar = "character"),
   make_option(c("-l", "--list"), type = "logical", default = FALSE, help = "If true, the rest of args are ignored and list all the possible files for one regionDB", metavar = "character"),
   make_option(c("-o", "--out"), type = "character", default = "./Outputs/", help = "Output directory [default = %default]", metavar = "character"),
@@ -25,8 +30,17 @@ option_list = list(
   make_option(c("-c", "--cores"), type = "character", default = "1", help = "Number of cores [default = %default]", metavar = "character")
   );
 
-opt_parser = OptionParser(option_list = option_list, usage = "2_EnrichmentsLOLA.R [file] [file] [file] [background] [sets] [database] ... [options]");
+opt_parser = OptionParser(option_list = option_list, usage = "2_EnrichmentsLOLA.R [file] [file] [file] [background] [database] ... [options]");
 opt = parse_args(opt_parser);
+
+if(as.logical(opt$list)){
+  if(opt$database == "Marks"){
+    cat("\n All:", list.files("./Data/regionDB/Chlamytina/Marks/regions/"))
+  }else if(opt$database == "States"){
+    cat("\n Waiting for chromHMM... \n")
+  }
+  stop(say(what = "STOP: Displaying file lists ", by = "poop"), call.=FALSE)
+}
 
 if (is.null(opt$file1)){
   print_help(opt_parser)
@@ -61,14 +75,6 @@ tmp <- base::sapply(mypkgs[!logicals], FUN = function(x){ suppressPackageStartup
 ##### 2. Import files and args #####
 
 cat("\n Importing files and arguments ... \n")
-if(opt$list){
-  if(opt$database == "Marks"){
-    cat("\n All:", list.files("./Data/regionDB/Chlamytina/Marks/regions/"))
-  }else if(opt$database == "States"){
-    cat("\n Waiting for chromHMM... \n")
-  }
-  stop(say(what = "STOP: Displaying file lists ", by = "poop"), call.=FALSE)
-}
 
 if(length(grep(pattern = ".txt", x = opt$background, fixed = TRUE)) == 0 & length(grep(pattern = ".bed", x = opt$background, fixed = TRUE)) == 0){
   stop(say(what = "STOP: Non supported format. Please try .txt or .bed tab separated", by = "poop"), call.=FALSE)
@@ -108,7 +114,9 @@ cat("\n Plotting significative results (0.05) ... \n")
 
 if(opt$database == "Marks"){
   for(i in 1:length(regionResults)){
-    name <- readline(prompt = paste0("Enter file", i, " name: "))
+    name <- strsplit(opt[[names(regionResults[i])]], split = ".", fixed = T)[[1]][1]
+    if(name == ""){ name <- strsplit(opt[[names(regionResults[i])]], split = ".", fixed = T)[[1]][2]}
+    name <- strsplit(name, split = "/")[[1]][length(strsplit(name, split = "/")[[1]])]
     regionResults[[i]]$file <- rep(name, nrow(regionResults[[i]]))
     regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 1
   }
@@ -116,20 +124,25 @@ if(opt$database == "Marks"){
   regionResults <- do.call(rbind, regionResults)
   regionResults <- regionResults[which(regionResults$oddsRatio > 1.0),]
   df <- data.frame(id = regionResults$file, condition = regionResults$description, variable = paste(regionResults$cellType, regionResults$tissue, regionResults$description, sep = " "), value = regionResults$oddsRatio)
-  Conditions <- df$condition
   df <- reshape(df[,-2], idvar = "id", v.names = "value",  timevar = "variable", direction = "wide")
   df[is.na(df)] <- 1
+  Conditions <- data.frame(Conditions = colnames(df)[-1])
+  Conditions$Conditions <- as.character(Conditions$Conditions)
+  for(i in 1:nrow(Conditions)){
+    Conditions$Conditions[i] <- strsplit(as.character(Conditions$Conditions[i]), split = " ")[[1]][3]
+  }
   colnames(df) <- gsub("value.", "", colnames(df), fixed = T)
   colnames(df) <- gsub("control", "", colnames(df), fixed = T)
   colnames(df) <- gsub("Nitrogen", "", colnames(df), fixed = T)
   colnames(df) <- gsub("Sulphur", "", colnames(df), fixed = T)
   rownames(df) <- df$id
   df <- df[,-1]
+  rownames(Conditions) <- colnames(df)
   col <- colorRampPalette(brewer.pal(7, "Greens"))(100)
   df <- t(as.matrix(df))
-  Conditions <- as.data.frame(Conditions)
-  rownames(Conditions) <- rownames(df)
-  title <- readline(prompt = "Enter a title for the plot:")
+  title <- strsplit(opt$background, split = ".", fixed = T)[[1]][1]
+  if(title == ""){title <- strsplit(opt$background, split = ".", fixed = T)[[1]][2]}
+  title <- strsplit(title, split = "/")[[1]][length(strsplit(title, split = "/")[[1]])]
   Annotation_colors <- list(Conditions = c(control = "darkgreen",Nitrogen = "cyan3", Sulphur = "gold3"))
   pdf(file = paste0(opt$out,title,".pdf"), paper = "a4r", height = 21, width = 28, onefile = T)
   pheatmap(df, scale = "none", color = col,  cluster_rows = F, cluster_cols = T,  clustering_method = "ward.D2", cellwidth = 75, annotation_row = Conditions, annotation_names_row = FALSE, main = title, annotation_colors = Annotation_colors)

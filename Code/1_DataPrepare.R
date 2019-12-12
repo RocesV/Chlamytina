@@ -31,7 +31,7 @@ option_list = list(
   make_option(c("-n", "--normalization"), type = "character", default = "none", help = "Normalization metric used. Options: normalizeQuantiles (limma), none \n \t It is advisable to set this argument as none and preprocess the data with other pkgs like Processomics [default = %default]", metavar = "character")
 );
 
-opt_parser = OptionParser(option_list = option_list, usage = "1_Data_Prepare.R [file] [condition] [file] [condition] ... [options]");
+opt_parser = OptionParser(option_list = option_list, usage = "1_DataPrepare.R [file] [condition] [file] [condition] ... [options]");
 opt = parse_args(opt_parser);
 
 if (is.null(opt$file1)){
@@ -233,6 +233,7 @@ VictorgoestoBED <- lapply(VictorgoestoBED, FUN = function(y){
 
 ##### 5. Background selection:OK #####
 
+cat("\n Universe background (whole Cre proteome/coding-transcriptome) is a good choice for your enrichments. You can find it at Chlamytina/Data/DB/Universe!")
 # File background is VictorgoestoBED$inputs
 cat("\n File background may be a good reference for your enrichments! \n")
 
@@ -256,7 +257,7 @@ if(length(inputs) > 1){
 if(opt$intersect){
   # intersect between files
   cat("\n Intersect is defined as TRUE \n")
-  myV <- nVennR::plotVenn(VictorgoestoBED$inputs, nCycles = 7000, opacity = 0.2, borderWidth = 3, systemShow = T, fontScale = 2)
+  myV <- nVennR::plotVenn(VictorgoestoBED$inputs, nCycles = 7000, opacity = 0.2, borderWidth = 3, systemShow = T, fontScale = 2, outFile = paste0(opt$out, "intersection.svg"))
   myV2 <- nVennR::listVennRegions(myV)
   nonames <- names(myV2)
   nonames <- sapply(nonames, USE.NAMES = F,FUN = function(x){
@@ -269,7 +270,7 @@ if(opt$intersect){
 if(opt$differential){
   # intersect between diffs
   cat("\n Differential is defined as TRUE \n")
-  myV <- nVennR::plotVenn(VictorgoestoBED$differential, nCycles = 7000, opacity = 0.2, borderWidth = 3, systemShow = T, fontScale = 2)
+  myV <- nVennR::plotVenn(VictorgoestoBED$differential, nCycles = 7000, opacity = 0.2, borderWidth = 3, systemShow = T, fontScale = 2, outFile = paste0(opt$out, "diff_intersection.svg"))
   myV2 <- nVennR::listVennRegions(myV)
   nonames <- names(myV2)
   nonames <- sapply(nonames, USE.NAMES = F,FUN = function(x){

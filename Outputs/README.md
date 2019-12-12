@@ -6,6 +6,7 @@ It depends of the arguments defined but we can classify the outputs in 4 types:
 - Uniq_***.bed - bed input for LOLA that comes from whole files intersection
 - Diff_uniq_***.bed - bed input for LOLA that comes from differential files intersection
 - *.pdf - LOLA enrichment results
+- *.svg - nVennR algorithm intersection results
 
 
 
