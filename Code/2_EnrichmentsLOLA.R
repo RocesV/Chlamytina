@@ -26,7 +26,7 @@ option_list = list(
   make_option(c("-b", "--background"), type = "character", default = NULL, help = "Background BED file path. The set of regions tested for enrichments", metavar = "character"),
   make_option(c("-l", "--list"), type = "logical", default = FALSE, help = "If true, the rest of args are ignored and list all the possible files for one regionDB", metavar = "character"),
   make_option(c("-o", "--out"), type = "character", default = "./Outputs/", help = "Output directory [default = %default]", metavar = "character"),
-  make_option(c("-r", "--database"), type = "character", default = "Marks", help = "regionDB used. Options: Marks (epigenetic marks) or States (chromatin states) [default = %default]", metavar = "character"),
+  make_option(c("-r", "--database"), type = "character", default = "MMarks", help = "regionDB used. Options: Marks (epigenetic marks by original conditions), MMarks (merged Marks wo conditions) or States (chromatin states) [default = %default]", metavar = "character"),
   make_option(c("-c", "--cores"), type = "character", default = "1", help = "Number of cores [default = %default]", metavar = "character")
   );
 

@@ -233,7 +233,7 @@ VictorgoestoBED <- lapply(VictorgoestoBED, FUN = function(y){
 
 ##### 5. Background selection:OK #####
 
-cat("\n Universe background (whole Cre proteome/coding-transcriptome) is a good choice for your enrichments. You can find it at Chlamytina/Data/DB/Universe!")
+cat("\n Universe background (whole Cre proteome/coding-transcriptome) is a good choice for your enrichments. You can find it at Chlamytina/Data/DB/Universe! \n")
 # File background is VictorgoestoBED$inputs
 cat("\n File background may be a good reference for your enrichments! \n")
 
