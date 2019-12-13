@@ -120,8 +120,7 @@ if(opt$database == "Marks"){
     if(name == ""){ name <- strsplit(opt[[names(regionResults[i])]], split = ".", fixed = T)[[1]][2]}
     name <- strsplit(name, split = "/")[[1]][length(strsplit(name, split = "/")[[1]])]
     regionResults[[i]]$file <- rep(name, nrow(regionResults[[i]]))
-    if(length(grep("Universe.bed", opt$background)) > 0){ regionResults[[i]]$oddsRatio[which(regionResults[[i]]$qValue > 0.05)] <- 0.5
-    }else {regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 0.5}
+    regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 0.5
   }
   
   regionResults <- do.call(rbind, regionResults)
@@ -159,8 +158,7 @@ if(opt$database == "MMarks"){
     if(name == ""){ name <- strsplit(opt[[names(regionResults[i])]], split = ".", fixed = T)[[1]][2]}
     name <- strsplit(name, split = "/")[[1]][length(strsplit(name, split = "/")[[1]])]
     regionResults[[i]]$file <- rep(name, nrow(regionResults[[i]]))
-    if(length(grep("Universe.bed", opt$background)) > 0){ regionResults[[i]]$oddsRatio[which(regionResults[[i]]$qValue > 0.05)] <- 0.5
-    }else {regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 0.5}
+    regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 0.5
   }
   
   regionResults <- do.call(rbind, regionResults)
