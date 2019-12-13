@@ -35,9 +35,11 @@ opt = parse_args(opt_parser);
 
 if(as.logical(opt$list)){
   if(opt$database == "Marks"){
-    cat("\n All:", list.files("./Data/regionDB/Chlamytina/Marks/regions/"))
+    cat("\n All files:", list.files("./Data/regionDB/Chlamytina/Marks/regions/"))
   }else if(opt$database == "States"){
     cat("\n Waiting for chromHMM... \n")
+  }else if(opt$database == "MMarks"){
+    cat("\n All files:", list.files("./Data/regionDB/Chlamytina/MMarks/regions/"))
   }
   stop(say(what = "STOP: Displaying file lists ", by = "poop"), call.=FALSE)
 }
@@ -118,11 +120,12 @@ if(opt$database == "Marks"){
     if(name == ""){ name <- strsplit(opt[[names(regionResults[i])]], split = ".", fixed = T)[[1]][2]}
     name <- strsplit(name, split = "/")[[1]][length(strsplit(name, split = "/")[[1]])]
     regionResults[[i]]$file <- rep(name, nrow(regionResults[[i]]))
-    regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 1
+    if(length(grep("Universe.bed", opt$background)) > 0){ regionResults[[i]]$oddsRatio[which(regionResults[[i]]$qValue > 0.05)] <- 0.5
+    }else {regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 0.5}
   }
   
   regionResults <- do.call(rbind, regionResults)
-  regionResults <- regionResults[which(regionResults$oddsRatio > 1.0),]
+  regionResults <- regionResults[which(regionResults$oddsRatio > 0.5),]
   df <- data.frame(id = regionResults$file, condition = regionResults$description, variable = paste(regionResults$cellType, regionResults$tissue, regionResults$description, sep = " "), value = regionResults$oddsRatio)
   df <- reshape(df[,-2], idvar = "id", v.names = "value",  timevar = "variable", direction = "wide")
   df[is.na(df)] <- 1
@@ -138,13 +141,52 @@ if(opt$database == "Marks"){
   rownames(df) <- df$id
   df <- df[,-1]
   rownames(Conditions) <- colnames(df)
-  col <- colorRampPalette(brewer.pal(7, "Greens"))(100)
+  col <- colorRampPalette(brewer.pal(9, "Purples"))(250)
   df <- t(as.matrix(df))
+  df[is.infinite(df)] <- 25
   title <- strsplit(opt$background, split = ".", fixed = T)[[1]][1]
   if(title == ""){title <- strsplit(opt$background, split = ".", fixed = T)[[1]][2]}
   title <- strsplit(title, split = "/")[[1]][length(strsplit(title, split = "/")[[1]])]
-  Annotation_colors <- list(Conditions = c(control = "darkgreen",Nitrogen = "cyan3", Sulphur = "gold3"))
-  pdf(file = paste0(opt$out,title,".pdf"), paper = "a4r", height = 21, width = 28, onefile = T)
+  Annotation_colors <- list(Conditions = c(control = "darkgreen",Nitrogen = "cyan3", Sulphur = "gold3", light = "white", dark = "black"))
+  pdf(file = paste0(opt$out,title,opt$database,".pdf"), paper = "a4r", height = 21, width = 28, onefile = T)
+  pheatmap(df, scale = "none", color = col,  cluster_rows = F, cluster_cols = T,  clustering_method = "ward.D2", cellwidth = 75, annotation_row = Conditions, annotation_names_row = FALSE, main = title, annotation_colors = Annotation_colors)
+  dev.off()
+}
+
+if(opt$database == "MMarks"){
+  for(i in 1:length(regionResults)){
+    name <- strsplit(opt[[names(regionResults[i])]], split = ".", fixed = T)[[1]][1]
+    if(name == ""){ name <- strsplit(opt[[names(regionResults[i])]], split = ".", fixed = T)[[1]][2]}
+    name <- strsplit(name, split = "/")[[1]][length(strsplit(name, split = "/")[[1]])]
+    regionResults[[i]]$file <- rep(name, nrow(regionResults[[i]]))
+    if(length(grep("Universe.bed", opt$background)) > 0){ regionResults[[i]]$oddsRatio[which(regionResults[[i]]$qValue > 0.05)] <- 0.5
+    }else {regionResults[[i]]$oddsRatio[which(regionResults[[i]]$pValueLog < 1.30103)] <- 0.5}
+  }
+  
+  regionResults <- do.call(rbind, regionResults)
+  df <- data.frame(id = regionResults$file, condition = regionResults$description, variable = paste(regionResults$cellType, regionResults$tissue, regionResults$description, sep = " "), value = regionResults$oddsRatio)
+  df <- reshape(df[,-2], idvar = "id", v.names = "value",  timevar = "variable", direction = "wide")
+  Conditions <- data.frame(Conditions = colnames(df)[-1])
+  Conditions$Conditions <- as.character(Conditions$Conditions)
+  for(i in 1:nrow(Conditions)){
+    Conditions$Conditions[i] <- strsplit(as.character(Conditions$Conditions[i]), split = " ")[[1]][3]
+  }
+  colnames(df) <- gsub("value.", "", colnames(df), fixed = T)
+  colnames(df) <- gsub("NA", "", colnames(df), fixed = T)
+  colnames(df) <- gsub("active", "", colnames(df), fixed = T)
+  colnames(df) <- gsub("repressive", "", colnames(df), fixed = T)
+  rownames(df) <- df$id
+  df <- df[,-1]
+  colnames(df)[grep("nucleosome", colnames(df))] <- "nucleosome"
+  rownames(Conditions) <- colnames(df)
+  col <- colorRampPalette(brewer.pal(9, "Greens"))(250)
+  df <- t(as.matrix(df))
+  df[is.infinite(df)] <- 25
+  title <- strsplit(opt$background, split = ".", fixed = T)[[1]][1]
+  if(title == ""){title <- strsplit(opt$background, split = ".", fixed = T)[[1]][2]}
+  title <- strsplit(title, split = "/")[[1]][length(strsplit(title, split = "/")[[1]])]
+  Annotation_colors <- list(Conditions = c(active = "lightsteelblue1", repressive = "darksalmon", nucleosome = "gold3"))
+  pdf(file = paste0(opt$out,title,opt$database,".pdf"), paper = "a4r", height = 21, width = 28, onefile = T)
   pheatmap(df, scale = "none", color = col,  cluster_rows = F, cluster_cols = T,  clustering_method = "ward.D2", cellwidth = 75, annotation_row = Conditions, annotation_names_row = FALSE, main = title, annotation_colors = Annotation_colors)
   dev.off()
 }
