@@ -7,4 +7,5 @@ Cre	H3K4me2	H3K4me2-R1_sortfilt.bed
 Cre	H3K4me3	H3K4me3_merged.bed
 Cre	H3K9me3	H3K9me3_merged.bed
 Cre	PSR1	PSR1_merged.bed
+Cre	Nucleosomes	nucleosome_sortfilt.bed
 Cre	RNApolII	RNApolII_merged.bed
