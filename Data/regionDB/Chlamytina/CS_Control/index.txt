@@ -1,0 +1,17 @@
+filename	id	celltype	description	tissue
+C_CS1.bed	CS1	Intragenic	Repressed	Conserved
+C_CS10.bed	CS10	5'gene	no info	Algal
+C_CS11.bed	CS11	5'gene	Promoter	Algal
+C_CS12.bed	CS12	5'gene	no info	Algal
+C_CS13.bed	CS13	5'gene	Promoter	Algal
+C_CS14.bed	CS14	5'gene	Promoter	Conserved
+C_CS15.bed	CS15	5'gene	no info	Conserved
+C_CS16.bed	CS16	no info	Heterochromatin	Conserved
+C_CS2.bed	CS2	Intragenic	Bivalent	Algal
+C_CS3.bed	CS3	Intragenic	Transcribed	Conserved
+C_CS4.bed	CS4	Intragenic	no info	Conserved
+C_CS5.bed	CS5	3'gene	no info	Algal
+C_CS6.bed	CS6	5'gene	no info	Conserved
+C_CS7.bed	CS7	5'gene	no info	Conserved
+C_CS8.bed	CS8	5'gene	no info	Conserved
+C_CS9.bed	CS9	5'gene	Promoter	Algal

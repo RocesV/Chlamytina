@@ -1,0 +1,17 @@
+filename	size
+N_CS1.bed	394
+N_CS10.bed	414
+N_CS11.bed	1473
+N_CS12.bed	81
+N_CS13.bed	608
+N_CS14.bed	4455
+N_CS15.bed	339
+N_CS16.bed	13832
+N_CS2.bed	144
+N_CS3.bed	1624
+N_CS4.bed	277
+N_CS5.bed	1160
+N_CS6.bed	303
+N_CS7.bed	108
+N_CS8.bed	970
+N_CS9.bed	6595
