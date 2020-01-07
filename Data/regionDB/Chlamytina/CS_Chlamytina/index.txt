@@ -1,0 +1,24 @@
+filename	id	celltype	description
+E1.bed	CS1	3UTR>TES>Exon	PSR1>Nucleosomes>X6mA
+E10.bed	CS10	TSS>VUTR>TSS2kb	H3K36me3>H3K4me3>H3K27ac>Nucleosomes>H3K9me3
+E11.bed	CS11	TES>TSS2kb>TSS>3UTR>VUTR	Nucleosomes>H3K27ac>H3K4me3>H3K9me3
+E12.bed	CS12	VUTR>TSS>TES>TSS2kb	H3K4me2>Nucleosomes>H3K27ac>H3K4me3>H3K9me3
+E13.bed	CS13	VUTR>TSS>TSS2kb	H3K4me2>Nucleosomes>X6mA>H3K4me3>H3K27ac>H3K9me3>RNApolII
+E14.bed	CS14	TSS>VUTR>TSS2kb>TES	X6mA>Nucleosomes>H3K27ac>H3K4me3>H3K9me3
+E15.bed	CS15	RepsLC>Intron	X6mA>Nucleosomes
+E16.bed	CS16	TSS2kb>TES	X6mA>Nucleosomes>H3K4me2>H3K4me3
+E17.bed	CS17	3UTR>TES>TSS2kb	Nucleosomes>H3K4me2>H3K4me3
+E18.bed	CS18	VUTR>TSS>TSS2kb>Intron>Genes	H3K36me3>H3K4me3>H3K4me2>Nucleosomes>H3K27ac>H3K9me3>X6mA>RNApolII
+E19.bed	CS19	Intron>CpGIslands>TSS2kb>Genes	H3K36me3>Nucleosomes>X6mA>H3K4me3>H3K27ac>H3K4me2>H3K9me3>RNApolII
+E2.bed	CS2	CpGIslands>Intron>Genes	Nucleosomes
+E20.bed	CS20	CpGIslands>Intron>Genes	H3K36me3>Nucleosomes
+E21.bed	CS21	Intron>3UTR	H3K36me3>H3K27me3>Nucleosomes>H3K9me3>X5mC
+E22.bed	CS22	Intron	Nucleosomes>H3K27me3>X5mC>H3K9me3>X6mA
+E23.bed	CS23	no info	H3K27me3>RNApolII>PSR1>H3K9me3
+E3.bed	CS3	RepsLC	Nucleosomes>X5mC>X6mA
+E4.bed	CS4	RepsLC	X5mC
+E5.bed	CS5	CpGIslands>RepsLC	rare signal
+E6.bed	CS6	3UTR>TES>Exon>Genes	RNApolII>Nucleosomes>PSR1>H3K36me3>H3K27me3>X6mA
+E7.bed	CS7	TES>3UTR>TSS>VUTR>TSS2kb	Nucleosomes>RNApolII>H3K27ac>H3K4me3>X6mA>H3K36me3>H3K9me3>H3K4me2>PSR1>H3K27me3
+E8.bed	CS8	TSS>VUTR>TSS2kb>Exon>Genes	H3K36me3>H3K4me3>RNApolII>H3K9me3>H3K27ac>Nucleosomes>X6mA
+E9.bed	CS9	TSS>VUTR>TSS2kb>Intron>Genes>Exon	H3K36me3>H3K4me3>X6mA>H3K27ac>Nucleosomes>H3K9me3
