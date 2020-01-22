@@ -1,9 +1,11 @@
 
- # Chlamytrina #
+# Chlamytina #
 - New Chlamydomonas reinhardtii chromatin states
- - Additional down stream analysis for differential proteins
+- Additional down-stream analysis for differential proteins
+- Epi-genomic Browser 
 
-# Timeline #
+# Workflow #
 <p align=center>
-<img src=Timeline_Workflows/Chlamytrina.jpeg />
+<img src=Timeline_Workflows/Workflow Chlamytina.jpg />
 </p>
+
