@@ -6,6 +6,6 @@
 
 # Workflow #
 <p align=center>
-<img src=Timeline_Workflows/Workflow Chlamytina.jpg />
+<img src=Timeline_Workflows/Workflow_Chlamytina.jpg />
 </p>
 
