@@ -1,6 +1,6 @@
 
 # Chlamytina #
-- New Chlamydomonas reinhardtii chromatin states
+- New *Chlamydomonas reinhardtii* chromatin states
 - Additional down-stream analysis for differential proteins
 - Epi-genomic Browser 
 
