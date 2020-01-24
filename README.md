@@ -44,7 +44,7 @@ Using this via the following steps (1_DataPrepare and 2_EnrichmentsLOLA) will re
 
 #### Via Dockerhub (epigenome-browser) ####
 
-Install Docker or Docker Desktop as follow https://docs.docker.com/ . This is the only way to get access to *epigenome-browser*. Pull rocesv/chlamytina image from dockerhub
+Install Docker or Docker Desktop as follow https://docs.docker.com/ . This is the only way to get access to **epigenome-browser**. Pull rocesv/chlamytina image from dockerhub
 
 
 ```
@@ -63,12 +63,22 @@ Check docker container is running
 docker ps -a
 ```
 
+Get inside the container
+
+```
+docker exec -i -t chlamytina_rocesv bash
+```
+Now you should see your container user like root@6a32e10fc951:/home#. Change directory to Chlamytina
+
+```
+cd Chlamytina/
+```
+
 Brief docker tutorial:
 
 ```
 docker stop rocesv/chlamytina # Stop the container
 docker start rocesv/chlamytina # Start the container
-docker exec -i -t rocesv/chlamytina bash # Get inside the container
 exit # Get outside the container 
 ```
 Using this via the time required for the following steps is minimum.
