@@ -14,5 +14,5 @@
 ### 0.Purpose ###
 
 Chlamytina is a small personal project focused in the well known green-algae model *Chlamydomonas reinhardtii* that tries to answer a common questions in some proteomic/transcriptomic studies:
-** Are my molecules of interest epigenetically regulated? **
+**Are my molecules of interest epigenetically regulated?**
 
