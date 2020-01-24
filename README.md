@@ -15,7 +15,7 @@
 
 Chlamytina is a small project focused in the well known green-algae model *Chlamydomonas reinhardtii* trying to answer a common question in some proteomic/transcriptomic studies: \
 \
-**Are my molecules of interest epigenetically regulated?** \
+                                                  **Are my molecules of interest epigenetically regulated?** \
 \
 To fill this gap, we collected all epigenectic files published until the date and developed a new **chromatin states model** including 6mA, 5mC and nucleosome-profile for the first time. Additionally,
 an **epigenome-browser** was conducted focusing on the site-specific approach. This tool engage the link-up between proteomic/transcriptomic changes and epigenetic patterns, thus displaying the 
@@ -251,8 +251,8 @@ Once you got into the docker container (2. Installation - Via Dockerhub) you nee
 service apache2 start
 ```
 Now you can enjoy the epigenome browser at http://localhost:8080/jbrowse . The browser will be available while the container is running so as long as ```docker stop chlamytina_rocesv``` is not executed you 
-can acces to jbrowse. We recommend to always select refseq track and one of the *Genes tracks (Nuclear, Mitochondrion, Chloroplast). The epigenomic tracks can be displayed by condition (Control, light ...)
-or merged (M-*). 
+can acces to jbrowse. We recommend to always select refseq track and one of the .Genes tracks (Nuclear, Mitochondrion, Chloroplast). The epigenomic tracks can be displayed by condition (Control, light ...)
+or merged (M-). 
 
 ### 6. FAQ ###
 
