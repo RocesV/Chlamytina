@@ -83,6 +83,82 @@ exit # Get outside the container
 ```
 Using this via the time required for the following steps is minimum.
 
+### 3. Data Prepare ###
+
+This script performs differential expression analysis, unwanted variation correction, Phytozome Accession liftover to the last version (5.5), intersection between proteins of different treatments and bed
+data generation (possible backgrounds and inputs for 4. LOLA Enrichment).   
+
+```
+Rscript --vanilla Code/1_DataPrepare.R -h
+
+Usage: 1_DataPrepare.R [file] [condition] [file] [condition] ... [options]
+
+
+Options:
+	-A CHARACTER, --file1=CHARACTER
+		Dataset1 file path. First column CreIDs. Other columns quantification data.
+
+	--condition1=CHARACTER
+		Dataset1 Condition vector. It representes replicates for each treatment, separated by - 
+ 	 Condition vector must contain all your replicates. For example (9 samples): 1) 3-6 will set a contrast between the first three replicates and the last six 
+ 	 2) 3-3-3 will set all possible two by two contrasts between the three treatments 
+
+
+	-B CHARACTER, --file2=CHARACTER
+		Dataset2 file path
+
+	--condition2=CHARACTER
+		Dataset2 Condition vector
+
+	-C CHARACTER, --file3=CHARACTER
+		Dataset3 file path
+
+	--condition3=CHARACTER
+		Dataset3 Condition vector
+
+	-D CHARACTER, --file4=CHARACTER
+		Dataset4 file path
+
+	--condition4=CHARACTER
+		Dataset4 Condition vector
+
+	-E CHARACTER, --file5=CHARACTER
+		Dataset5 file path
+
+	--condition5=CHARACTER
+		Dataset5 Condition vector
+
+	-d DIFFERENTIAL, --differential=DIFFERENTIAL
+		If true, differential expression limma based test is performed [default = TRUE]
+
+	-s SVA, --sva=SVA
+		If true, sva removing unwanted variation is performed. Only for n>10-15 samples datasets. [default = FALSE]
+
+	-i CHARACTER, --intersect=CHARACTER
+		CreIDs intra-inter group specific discrimination [default = TRUE]
+
+	-o CHARACTER, --out=CHARACTER
+		Output directory [default = ./Outputs/]
+
+	-c CHARACTER, --chromosome=CHARACTER
+		If true, non-chromosome mapped (scaffolds ...) proteins are not taked into account [default = TRUE]
+
+	-n CHARACTER, --normalization=CHARACTER
+		Normalization metric used. Options: normalizeQuantiles (limma), none 
+ 	 It is advisable to set this argument as none and preprocess the data with other pkgs like Processomics [default = none]
+
+	-h, --help
+		Show this help message and exit
+```
+
+Example:
+
+```
+Rscript --vanilla Code/1_DataPrepare.R -A <PATH TO DATASET>/Dataset1.xlsx --condition1 3-15 -B <PATH TO DATASET>/Dataset2.xlsx --condition2 4-20 -C <PATH TO DATASET>/Dataset3.xlsx --condition3 3-6
+-s TRUE -n normalizeQuantiles
+```
+
+
  
 
 
