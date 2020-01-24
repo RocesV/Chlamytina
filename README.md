@@ -85,7 +85,7 @@ Using this via the time required for the following steps is minimum.
 
 ### 3. Data Prepare ###
 
-This script performs differential expression analysis, unwanted variation correction, Phytozome Accession liftover to the last version (5.5), intersection between proteins of different treatments and bed
+1_DataPrepare.R script performs differential expression analysis, unwanted variation correction, Phytozome Accession liftover to the last version (5.5), intersection between proteins of different treatments and bed
 data generation (possible backgrounds and inputs for 4. LOLA Enrichment).   
 
 ```
@@ -162,9 +162,9 @@ Rscript --vanilla Code/1_DataPrepare.R -A <PATH TO DATASET>/Dataset1.xlsx --cond
 
 To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOLA.R script performs enrichment analysis based on genomic regions overlap using LOLA package and plots a heatmap. This analysis needs three components: \
 \
-a) Query set or input, as genomic regions (.bed outputs from 1_DataPrepare) \
-b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see FAQ (.bed outputs from 1_DataPrepare or Data/DB/Universe.bed \
-c) regionDB sets that are to be tested for overlap with the input (Data/regionDB/Chlamytina) 
+a) Query set or input, as genomic regions (.bed outputs from 1_DataPrepare.R) \
+b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see FAQ (.bed outputs from 1_DataPrepare.R or Data/DB/Universe.bed \
+c) region data base sets that are to be tested for overlap with the input (Data/regionDB/Chlamytina) 
 
 ```
 Rscript --vanilla Code/2_EnrichmentsLOLA -h 
@@ -251,19 +251,25 @@ Once you got into the docker container (2. Installation - Via Dockerhub) you nee
 service apache2 start
 ```
 Now you can enjoy the epigenome browser at http://localhost:8080/jbrowse . The browser will be available while the container is running so as long as ```docker stop chlamytina_rocesv``` is not executed you 
-can acces to jbrowse. TRACKS COMMENT
+can acces to jbrowse. We recommend to always select refseq track and one of the *Genes tracks (Nuclear, Mitochondrion, Chloroplast). The epigenomic tracks can be displayed by condition (Control, light ...)
+or merged (M-*). 
 
 ### 6. FAQ ###
 
-**(Q) What type of outputs can i obtain from Chlamytina?**
+**(Q) What type of outputs can I obtain from Chlamytina?**
 
-Depend
+- It depends on the arguments selected. For a more detailed description, see Outputs/README.md 
 
-**(Q) What type of inputs can i use?**
+**(Q) What type of inputs can I use?**
 
-**(Q) Which background should i use?**
+- Both transcripts and proteins can be used as long as the accessions comes from Phytozome
+
+**(Q) Which background should I use?**
+
+- 
 
 **(Q) Why are there different regionDBs?**
 
+- To be able to elucidate the epigenetic regulation at different levels (marks with conditions, merged marks, chromatin states) we decided to maintain several regionDBs so you can choose the one that
+best suits your questions. Data/DB/CS_Chlamytina_interpretation heatmaps would make easier the biological interpretation of CS_Chlamytina regionDB results  
 
- 

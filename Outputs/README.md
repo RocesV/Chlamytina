@@ -1,5 +1,5 @@
 # OUTPUTS FORMAT #
-It depends of the arguments defined but we can classify the outputs in 4 types:
+It depends on the arguments defined but we can classify the outputs in 4 types:
 
 - *.txt - Example file1_Treatment2-Treatment1.txt : All the files finished with .txt comes from differential expression tests. Syntax: [file used by position in arguments]_[Treatments comparison from condition vector]
 - *_background.bed - Possible Universes you can use to run LOLA enrichment analysis. File background is named without _background. Example: file1.bed
