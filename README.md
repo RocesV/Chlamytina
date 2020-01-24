@@ -77,8 +77,8 @@ cd Chlamytina/
 Brief docker tutorial:
 
 ```
-docker stop rocesv/chlamytina # Stop the container
-docker start rocesv/chlamytina # Start the container
+docker stop chlamytina_rocesv # Stop the container
+docker start chlamytina_rocesv # Start the container
 exit # Get outside the container 
 ```
 Using this via the time required for the following steps is minimum.
