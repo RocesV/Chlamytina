@@ -250,5 +250,20 @@ Once you got into the docker container (2. Installation - Via Dockerhub) you nee
 ```
 service apache2 start
 ```
-Now you can enjoy the epigenome browser at http:localhost:8080/jbrowse . The browser will be available while the container is running so as long as ```docker stop chlamytina_rocesv``` is not executed you 
-can acces to jbrowse. 
+Now you can enjoy the epigenome browser at http://localhost:8080/jbrowse . The browser will be available while the container is running so as long as ```docker stop chlamytina_rocesv``` is not executed you 
+can acces to jbrowse. TRACKS COMMENT
+
+### 6. FAQ ###
+
+**(Q) What type of outputs can i obtain from Chlamytina?**
+
+Depend
+
+**(Q) What type of inputs can i use?**
+
+**(Q) Which background should i use?**
+
+**(Q) Why are there different regionDBs?**
+
+
+ 
