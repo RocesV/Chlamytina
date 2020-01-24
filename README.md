@@ -40,6 +40,39 @@ You need a user with root permissions. Change directory to Chlamytina and run 0_
 cd Chlamytina/
 bash Code/0_ChlamytinaEssential.sh # IMPORTANT: all processes need to be done inside Chlamytina directory NOT from Chlamytina subdirectories
 ```
- 
+Using this via the following steps (1_DataPrepare and 2_EnrichmentsLOLA) will require more time (~ 1.5h) for installing the R packages needed.  
 
 #### Via Dockerhub (epigenome-browser) ####
+
+Install Docker or Docker Desktop as follow https://docs.docker.com/ . This is the only way to get access to *epigenome-browser*. Pull rocesv/chlamytina image from dockerhub
+
+
+```
+docker pull rocesv/chlamytina
+``` 
+
+Build the container using the image pulled. Because the jbrowse inside the container is running in apache2 server, an empy port from the host (8080) need to be connected to container's 80 port. In order to 
+share data between host and the container it is recommended to define a volume (-v) linking a host directory to /home/rocesv/Documents/Transfer folder. 
+
+```
+docker run -t -i -d --name chlamytina_rocesv -p 8080:80 -v <ABSOLUTE PATH TO HOST SHARED DIRECTORY>:/home/rocesv/Documents/Transfer rocesv/chamytina bash
+```
+Check docker container is running 
+
+```
+docker ps -a
+```
+
+Brief docker tutorial:
+
+```
+docker stop rocesv/chlamytina # Stop the container
+docker start rocesv/chlamytina # Start the container
+docker exec -i -t rocesv/chlamytina bash # Get inside the container
+exit # Get outside the container 
+```
+Using this via the time required for the following steps is minimum.
+
+ 
+
+
