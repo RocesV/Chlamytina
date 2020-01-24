@@ -161,6 +161,7 @@ Rscript --vanilla Code/1_DataPrepare.R -A <PATH TO DATASET>/Dataset1.xlsx --cond
 ### 4. LOLA Enrichment ###
 
 To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOLA.R script performs enrichment analysis based on genomic regions overlap using LOLA package and plots a heatmap. This analysis needs three components: \
+\
 a) Query set or input, as genomic regions (.bed outputs from 1_DataPrepare) \
 b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see FAQ (.bed outputs from 1_DataPrepare or Data/DB/Universe.bed \
 c) regionDB sets that are to be tested for overlap with the input (Data/regionDB/Chlamytina) \
