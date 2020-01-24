@@ -164,7 +164,7 @@ To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOL
 \
 a) Query set or input, as genomic regions (.bed outputs from 1_DataPrepare) \
 b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see FAQ (.bed outputs from 1_DataPrepare or Data/DB/Universe.bed \
-c) regionDB sets that are to be tested for overlap with the input (Data/regionDB/Chlamytina) \
+c) regionDB sets that are to be tested for overlap with the input (Data/regionDB/Chlamytina) 
 
 ```
 Rscript --vanilla Code/2_EnrichmentsLOLA -h 
@@ -244,3 +244,11 @@ Example:
 Rscript --vanilla Code/2_EnrichmentsLOLA.R -A Query1.bed -B Query2.bed -C Query3.bed -D Query4.bed -b Data/DB/Universe.bed -r CS_Chlamytina
 ```
 
+### 5. Epigenome browser ###
+
+Once you got into the docker container (2. Installation - Via Dockerhub) you need to start the apache2 server 
+```
+service apache2 start
+```
+Now you can enjoy the epigenome browser at http:localhost:8080/jbrowse . The browser will be available while the container is running so as long as ```docker stop chlamytina_rocesv``` is not executed you 
+can acces to jbrowse. 
