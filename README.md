@@ -19,7 +19,7 @@ Chlamytina is a small project focused in the well known green-algae model *Chlam
 \
 To fill this gap, we collected all epigenectic files published until the date and developed a new **chromatin states model** including 6mA, 5mC and nucleosome-profile for the first time. Additionally,
 an **epigenome-browser** was conducted focusing on the site-specific approach. This tool engage the link-up between proteomic/transcriptomic changes and epigenetic patterns, thus displaying the 
-*Chlamydomonas reinhardtii* epi-proteogenomic/epi-transcriptomic landscape.             
+*Chlamydomonas reinhardtii* epi-proteogenomic landscape.             
 
 ### 1. Inputs ###
 
@@ -52,7 +52,7 @@ docker pull rocesv/chlamytina
 ``` 
 
 Build the container using the image pulled. Because the jbrowse inside the container is running in apache2 server, an empy port from the host (8080) need to be connected to container's 80 port. In order to 
-share data between host and the container it is recommended to define a volume (-v) linking a host directory to /home/rocesv/Documents/Transfer folder. 
+share data between host and the container it is advisable to define a volume (-v) linking a host directory to /home/rocesv/Documents/Transfer folder. 
 
 ```
 docker run -t -i -d --name chlamytina_rocesv -p 8080:80 -v <ABSOLUTE PATH TO HOST SHARED DIRECTORY>:/home/rocesv/Documents/Transfer rocesv/chamytina bash
@@ -158,7 +158,88 @@ Rscript --vanilla Code/1_DataPrepare.R -A <PATH TO DATASET>/Dataset1.xlsx --cond
 -s TRUE -n normalizeQuantiles
 ```
 
+### 4. LOLA Enrichment ###
 
- 
+To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOLA.R script performs enrichment analysis based on genomic regions overlap using LOLA package and plots a heatmap. This analysis needs three components: \
+a) Query set or input, as genomic regions (.bed outputs from 1_DataPrepare) \
+b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see FAQ (.bed outputs from 1_DataPrepare or Data/DB/Universe.bed \
+c) regionDB sets that are to be tested for overlap with the input (Data/regionDB/Chlamytina) \
 
+```
+Rscript --vanilla Code/2_EnrichmentsLOLA -h 
+
+Usage: 2_EnrichmentsLOLA.R [file] [file] [file] [background] [database] ... [options]
+
+
+Options:
+
+	-A CHARACTER, --file1=CHARACTER
+
+		First BED file path. Any BED file with chr, start and end or DataPrepare output
+
+	-B CHARACTER, --file2=CHARACTER
+
+		Second BED file path
+
+	-C CHARACTER, --file3=CHARACTER
+
+		Third BED file path
+
+	-D CHARACTER, --file4=CHARACTER
+
+		Fourth BED file path
+
+	-E CHARACTER, --file5=CHARACTER
+
+		Fifth file path
+
+	-F CHARACTER, --file6=CHARACTER
+
+		Sixth file path
+
+	-G CHARACTER, --file7=CHARACTER
+
+		Seventh file path
+
+	-H CHARACTER, --file8=CHARACTER
+
+		Eighth file path
+
+	-I CHARACTER, --file9=CHARACTER
+
+		Nineth file path
+
+	-J CHARACTER, --file10=CHARACTER
+
+		Tenth file path
+
+	-b CHARACTER, --background=CHARACTER
+
+		Background BED file path. The set of regions tested for enrichments
+
+	-l CHARACTER, --list=CHARACTER
+
+		If true, the rest of args are ignored and list all the files for one regionDB
+
+	-o CHARACTER, --out=CHARACTER
+
+		Output directory [default = ./Outputs/]
+
+	-r CHARACTER, --database=CHARACTER
+
+		regionDB used. Options: Marks (epigenetic marks by original conditions), MMarks (merged Marks wo conditions) or CS_Control, CS_N, CS_S (Ngan et al., Nat.Plants 2015, Chromatin States !Nitrogen !Sulfur) or CS_Chlamytina (Updated Chromatin states with 5mC, 6mA and MNase) [default = MMarks]
+
+	-c CHARACTER, --cores=CHARACTER
+
+		Number of cores [default = 1]
+
+	-h, --help
+
+		Show this help message and exit
+```
+Example:
+
+```
+Rscript --vanilla Code/2_EnrichmentsLOLA.R -A Query1.bed -B Query2.bed -C Query3.bed -D Query4.bed -b Data/DB/Universe.bed -r CS_Chlamytina
+```
 
