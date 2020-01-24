@@ -2,7 +2,7 @@
 # Chlamytina #
 - New *Chlamydomonas reinhardtii* chromatin states
 - Additional down-stream analysis for differential proteins
-- Epi-genome Browser 
+- Epigenome-browser 
 
 ## Workflow ##
 <p align=center>
@@ -14,6 +14,10 @@
 ### 0.Purpose ###
 
 Chlamytina is a small project focused in the well known green-algae model *Chlamydomonas reinhardtii* that tries to answer a common questions in some proteomic/transcriptomic studies: \
+\
 **Are my molecules of interest epigenetically regulated?** \
-To fill this gap, we collected all epigenectic files published until the date and developed new chromatin states model including 6mA, 5mC and nucleosome-profile for the first time.       
+\
+To fill this gap, we collected all epigenectic files published until the date and developed new **chromatin states model** including 6mA, 5mC and nucleosome-profile for the first time. Additionally,
+an **epigenome-browser** was conducted focusing on the site-specific approach. This tool engage the link-up between proteomic/transcriptomic changes and epigenetic patterns, thus displaying the 
+*Chlamydomonas reinhardtii* epi-proteogenomic/epi-transcriptomic landscape.             
 
