@@ -13,7 +13,7 @@
 
 ### 0. Purpose ###
 
-Chlamytina is a small project focused in the well known green-algae model *Chlamydomonas reinhardtii* that tries to answer a common questions in some proteomic/transcriptomic studies: \
+Chlamytina is a small project focused in the well known green-algae model *Chlamydomonas reinhardtii* trying to answer a common question in some proteomic/transcriptomic studies: \
 \
 **Are my molecules of interest epigenetically regulated?** \
 \
@@ -37,10 +37,10 @@ git clone https://github.com/RocesV/Chlamytina
 You need a user with root permissions. Change directory to Chlamytina and run 0_ChlamytinaEssential.sh to install all dependecies and software needed.
 
 ```
-cd Chlamytina/
-bash Code/0_ChlamytinaEssential.sh # IMPORTANT: all processes need to be done inside Chlamytina directory NOT from Chlamytina subdirectories
+cd Chlamytina/  # IMPORTANT: all processes need to be done inside Chlamytina directory NOT from Chlamytina subdirectories
+bash Code/0_ChlamytinaEssential.sh
 ```
-Using this via the following steps (1_DataPrepare and 2_EnrichmentsLOLA) will require more time (~ 1.5h) for installing the R packages needed.  
+Using this via the following steps (1_DataPrepare and 2_EnrichmentsLOLA) will require more time (~ 1.5 h) for installing the R packages needed.  
 
 #### Via Dockerhub (epigenome-browser) ####
 
