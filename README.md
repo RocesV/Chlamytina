@@ -12,6 +12,12 @@
 ## Vignette ##
 
 0. [ Purpose. ](#purp)
+1. [ Inputs. ](#inp)
+2. [ Installation. ](#ins)
+3. [ Data Prepare. ](#datap)
+4. [ LOLA Enrichments. ](#lola)
+5. [ Epigenome browser. ](#browser)
+6. [ FAQ. ](#faq)
 
 <a name="purp"></a>
 ### 0. Purpose ###
@@ -24,10 +30,12 @@ To fill this gap, we collected all epigenectic files published until the date an
 an **epigenome-browser** was conducted focusing on the site-specific approach. This tool engage the link-up between proteomic/transcriptomic changes and epigenetic patterns, thus displaying the 
 *Chlamydomonas reinhardtii* epi-proteogenomic landscape.             
 
+<a name="inp"></a>
 ### 1. Inputs ###
 
 The data has to be input as a table (first column = Phytozome accessions, other columns = different treatment abundance/expression) in .xlsx, .xlx or tab-separated .txt format.
 
+<a name="ins"></a>
 ### 2. Installation ###
 
 #### Via Github #### 
@@ -86,6 +94,7 @@ exit # Get outside the container
 ```
 Using this via the time required for the following steps is minimum.
 
+<a name="datap"></a>
 ### 3. Data Prepare ###
 
 1_DataPrepare.R script performs differential expression analysis, unwanted variation correction, Phytozome Accession liftover to the last version (5.5), intersection between proteins of different treatments and bed
@@ -161,6 +170,7 @@ Rscript --vanilla Code/1_DataPrepare.R -A <PATH TO DATASET>/Dataset1.xlsx --cond
 -s TRUE -n normalizeQuantiles
 ```
 
+<a name="lola"></a>
 ### 4. LOLA Enrichment ###
 
 To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOLA.R script performs enrichment analysis based on genomic regions overlap using LOLA package and plots a heatmap. This analysis needs three components: \
@@ -246,7 +256,7 @@ Example:
 ```
 Rscript --vanilla Code/2_EnrichmentsLOLA.R -A Query1.bed -B Query2.bed -C Query3.bed -D Query4.bed -b Data/DB/Universe.bed -r CS_Chlamytina
 ```
-
+<a name="browser"></a>
 ### 5. Epigenome browser ###
 
 Once you got into the docker container (2. Installation - Via Dockerhub) you need to start the apache2 server 
@@ -257,6 +267,7 @@ Now you can enjoy the epigenome browser at http://localhost:8080/jbrowse . The b
 can acces to jbrowse. We recommend to always select refseq track and one of the .Genes tracks (Nuclear, Mitochondrion, Chloroplast). The epigenomic tracks can be displayed by condition (Control, light ...)
 or merged (M-). 
 
+<a name="faq"></a>
 ### 6. FAQ ###
 
 **(Q) What type of outputs can I obtain from Chlamytina?**
