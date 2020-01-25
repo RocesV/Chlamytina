@@ -11,6 +11,9 @@
 
 ## Vignette ##
 
+0. [ Purpose. ](#purp)
+
+<a name="purp"></a>
 ### 0. Purpose ###
 
 Chlamytina is a small project focused in the well known green-algae model *Chlamydomonas reinhardtii* trying to answer a common question in some proteomic/transcriptomic studies: \
@@ -51,7 +54,7 @@ Install Docker or Docker Desktop as follow https://docs.docker.com/ . This is th
 docker pull rocesv/chlamytina
 ``` 
 
-Build the container using the image pulled. Because the jbrowse inside the container is running in apache2 server, an empy port from the host (8080) need to be connected to container's 80 port. In order to 
+Build the container using the image pulled. Because the jbrowse inside the container is running in apache2 server, an empty port from the host (8080) need to be connected to container's 80 port. In order to 
 share data between host and the container it is advisable to define a volume (-v) linking a host directory to /home/rocesv/Documents/Transfer folder. 
 
 ```
@@ -269,7 +272,7 @@ or merged (M-).
 - Using the same subset of proteins/transcripts as query you can obtain different results depending on the universe/background selected. Enrichments are computed using the background/universe as
 reference so all potential enrichments already present in your background will be deprecated. To obtain a general view of your data we recommend use first
 whole proteome/coding-transcriptome background (Data/DB/Universe.bed) because your global background may have some enrichments. Possible background in Chlamytina: Universe.bed, Global_background.bed 
-(total set of your proteins), Differential_background.bed (total set of your differential proteins), file1.bed (single file set of proteins). Any .bed file that include your query can be used as background
+(total set of proteins), Differential_background.bed (total set of differential proteins), file1.bed (single file set of proteins). Any .bed file that include your query can be used as background
 but you have to be careful with query:background size.      
 
 **(Q) Why are there different regionDBs?**
