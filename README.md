@@ -163,7 +163,7 @@ Rscript --vanilla Code/1_DataPrepare.R -A <PATH TO DATASET>/Dataset1.xlsx --cond
 To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOLA.R script performs enrichment analysis based on genomic regions overlap using LOLA package and plots a heatmap. This analysis needs three components: \
 \
 a) Query set or input, as genomic regions (.bed outputs from 1_DataPrepare.R) \
-b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see FAQ (.bed outputs from 1_DataPrepare.R or Data/DB/Universe.bed \
+b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see **FAQ** (.bed outputs from 1_DataPrepare.R or Data/DB/Universe.bed) \
 c) region data base sets that are to be tested for overlap with the input (Data/regionDB/Chlamytina) 
 
 ```
@@ -264,9 +264,13 @@ or merged (M-).
 
 - Both transcripts and proteins can be used as long as the accessions comes from Phytozome
 
-**(Q) Which background should I use?**
+**(Q) Which background/universe should I use?**
 
-- 
+- Using the same subset of proteins/transcripts as query you can obtain different results depending on the universe/background selected. Enrichments are computed using the background/universe as
+reference so all potential enrichments already present in your background will be deprecated. To obtain a general view of your data we recommend use first
+whole proteome/coding-transcriptome background (Data/DB/Universe.bed) because your global background may have some enrichments. Possible background in Chlamytina: Universe.bed, Global_background.bed 
+(total set of your proteins), Differential_background.bed (total set of your differential proteins), file1.bed (single file set of proteins). Any .bed file that include your query can be used as background
+but you have to be careful with query:background size.      
 
 **(Q) Why are there different regionDBs?**
 
