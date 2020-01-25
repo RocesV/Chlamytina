@@ -26,7 +26,7 @@ Chlamytina is a small project focused in the well known green-algae model *Chlam
 \
                                                   **Are my molecules of interest epigenetically regulated?** \
 \
-To fill this gap, we collected all epigenectic files published until the date and developed a new **chromatin states model** including 6mA, 5mC and nucleosome-profile for the first time. Additionally,
+To fill this gap, we collected all epigenectic files published until the date ([Fu *et al*., 2015](https://www.cell.com/cell/fulltext/S0092-8674(15)00427-4?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867415004274%3Fshowall%3Dtrue), [Lopez *et al*., 2015](http://www.plantphysiol.org/content/169/4/2730.long), [Ngang *et al*., 2015](https://www.nature.com/articles/nplants2015107)) and developed a new **chromatin states model** ([ChromHMM](http://compbio.mit.edu/ChromHMM/)) including 6mA, 5mC and nucleosome-profile for the first time. Additionally,
 an **epigenome-browser** was conducted focusing on the site-specific approach. This tool engage the link-up between proteomic/transcriptomic changes and epigenetic patterns, thus displaying the 
 *Chlamydomonas reinhardtii* epi-proteogenomic landscape.             
 
@@ -62,7 +62,7 @@ Install Docker or Docker Desktop as follow https://docs.docker.com/ . This is th
 docker pull rocesv/chlamytina
 ``` 
 
-Build the container using the image pulled. Because the jbrowse inside the container is running in apache2 server, an empty port from the host (8080) need to be connected to container's 80 port. In order to 
+Build the container using the image pulled. Because the [jbrowse](https://jbrowse.org/) inside the container is running in apache2 server, an empty port from the host (8080) need to be connected to container's 80 port. In order to 
 share data between host and the container it is advisable to define a volume (-v) linking a host directory to /home/rocesv/Documents/Transfer folder. 
 
 ```
@@ -97,7 +97,7 @@ Using this via the time required for the following steps is minimum.
 <a name="datap"></a>
 ### 3. Data Prepare ###
 
-1_DataPrepare.R script performs differential expression analysis, unwanted variation correction, Phytozome Accession liftover to the last version (5.5), intersection between proteins of different treatments and bed
+1_DataPrepare.R script performs differential expression analysis ([limma](https://bioconductor.org/packages/release/bioc/html/limma.html)), unwanted variation correction ([sva](https://bioconductor.org/packages/release/bioc/html/sva.html)), Phytozome Accession liftover to the last version (5.5), intersection ([nVennR](https://academic.oup.com/bioinformatics/article/34/13/2322/4904268)) between proteins of different treatments and bed
 data generation (possible backgrounds and inputs for 4. LOLA Enrichment).   
 
 ```
@@ -173,7 +173,7 @@ Rscript --vanilla Code/1_DataPrepare.R -A <PATH TO DATASET>/Dataset1.xlsx --cond
 <a name="lola"></a>
 ### 4. LOLA Enrichment ###
 
-To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOLA.R script performs enrichment analysis based on genomic regions overlap using LOLA package and plots a heatmap. This analysis needs three components: \
+To decipher the potential epigenetic regulation of the dataset, 2_EnrichmentsLOLA.R script performs enrichment analysis based on genomic regions overlap using [LOLA](https://code.databio.org/LOLA/) package and plots a heatmap. This analysis needs three components: \
 \
 a) Query set or input, as genomic regions (.bed outputs from 1_DataPrepare.R) \
 b) Universe or background, set of regions that could potentially have been included in the query set. This depends on the biological question, see **FAQ** (.bed outputs from 1_DataPrepare.R or Data/DB/Universe.bed) \
