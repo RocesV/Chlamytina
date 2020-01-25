@@ -26,7 +26,7 @@ Chlamytina is a small project focused in the well known green-algae model *Chlam
 \
                                                   **Are my molecules of interest epigenetically regulated?** \
 \
-To fill this gap, we collected all epigenectic files published until the date ([Fu *et al*., 2015](https://www.cell.com/cell/fulltext/S0092-8674(15)00427-4?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867415004274%3Fshowall%3Dtrue), [Lopez *et al*., 2015](http://www.plantphysiol.org/content/169/4/2730.long), [Ngang *et al*., 2015](https://www.nature.com/articles/nplants2015107)) and developed a new **chromatin states model** ([ChromHMM](http://compbio.mit.edu/ChromHMM/)) including 6mA, 5mC and nucleosome-profile for the first time. Additionally,
+To fill this gap, we collected all epigenectic files published until the date ([Fu *et al*., 2015](https://www.cell.com/cell/fulltext/S0092-8674(15)00427-4?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867415004274%3Fshowall%3Dtrue), [Lopez *et al*., 2015](http://www.plantphysiol.org/content/169/4/2730.long), [Ngan *et al*., 2015](https://www.nature.com/articles/nplants2015107)) and developed a new **chromatin states model** ([ChromHMM](http://compbio.mit.edu/ChromHMM/)) including 6mA, 5mC and nucleosome-profile for the first time. Additionally,
 an **epigenome-browser** was conducted focusing on the site-specific approach. This tool engage the link-up between proteomic/transcriptomic changes and epigenetic patterns, thus displaying the 
 *Chlamydomonas reinhardtii* epi-proteogenomic landscape.             
 
