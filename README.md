@@ -2,7 +2,7 @@
 # Chlamytina #
 - New *Chlamydomonas reinhardtii* chromatin states
 - Additional down-stream analysis for differential proteins
-- Epigenome-browser 
+- Epigenome browser 
 
 ## Workflow ##
 <p align=center>
