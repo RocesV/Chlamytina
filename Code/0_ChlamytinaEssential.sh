@@ -6,7 +6,7 @@ sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu disco-
 sudo apt update
 sudo apt install gdebi libxml2-dev libssl-dev libcurl4-openssl-dev libopenblas-dev r-base-dev
 
-# RStudio (not stricted needed but it is okay for troubleshooting)
+# RStudio (not stricted needed but it is okay for troubleshooting, check)
 cd ~/Downloads
 wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5001-amd64.deb
 sudo gdebi rstudio-1.2.5001-amd64.deb
