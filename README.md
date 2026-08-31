@@ -23,7 +23,7 @@ Chlamytina was built around a practical question in Chlamydomonas proteomics and
 
 > Are my molecules of interest epigenetically regulated?
 
-The project combines differential abundance/expression analysis, genomic coordinate conversion, BED export, curated epigenomic databases, and [LOLA](https://code.databio.org/LOLA/) overlap enrichment. The bundled annotations include epigenetic marks, merged marks, published chromatin states, and the Chlamytina chromatin-state model integrating 5mC, 6mA, and MNase/nucleosome information.
+The project combines differential abundance/expression analysis, genomic coordinate conversion, BED export, curated epigenomic databases, and [LOLA](https://code.databio.org/LOLA/) overlap enrichment. The annotations include epigenetic marks, merged marks, published chromatin states, and the Chlamytina chromatin-state model integrating 5mC, 6mA, and MNase/nucleosome information.
 
 ## Installation
 
@@ -128,7 +128,7 @@ Supported formats:
 Chlamytina can work with protein-abundance tables, gene- or transcript-level expression tables, and transcriptomic count-like matrices. For transcriptomic workflows, count-scale values are preferred; these may include, for example, Salmon-derived estimates imported with tximport, including matrices generated with countsFromAbundance = "lengthScaledTPM". For count-like RNA-seq data, Chlamytina uses DESeq2, whereas limma provides greater flexibility for continuous or already transformed expression measurements, such as protein abundances or non-count expression metrics. Float values may be rounded only when they represent estimated counts.
 
 > [!TIP]
-> Check the bundled test tables before preparing your own input:
+> Check the test tables before preparing your own input:
 >
 > - `test/prots/`
 > - `test/trans/`
