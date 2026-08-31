@@ -166,7 +166,7 @@ The whole-genome alignment file used for liftover support is provided in the rep
 Data/DB/liftover/Cr_3way.hal.gz
 ```
 
-We thank the authors of the Chlamydomonas Genome Project v6 resource for kindly providing the whole-genome alignment file used for these liftovers. Reference: Craig et al., 2023, [The Plant Ce>
+We thank the authors of the Chlamydomonas Genome Project v6 resource for kindly providing the whole-genome alignment file used for these liftovers. Reference: [Craig et al., 2023](https://doi.org/10.1093/plcell/koac347)
 
 If you need the HAL file after cloning, install Git LFS and pull the object:
 
