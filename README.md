@@ -10,7 +10,7 @@ Chlamytina connects *Chlamydomonas reinhardtii* proteomic or transcriptomic chan
 
 1. [Purpose](#purpose)
 2. [Installation](#installation)
-3. [Inputs and Genome Data](#inputs-and-genome-data)
+3. [Inputs and Genome Versions](#inputs-and-genome-data)
 4. [First Step: DataPrepare](#first-step-dataprepare)
 5. [Second Step: LOLAEnrichments](#second-step-lolaenrichments)
 6. [Outputs](#outputs)
@@ -111,7 +111,7 @@ exit # Get outside the container
 
 Using this via the time required for the following steps is minimum.
 
-## Inputs and Genome Data
+## Inputs and Genome Versions
 
 Input data should be a table where:
 
@@ -158,6 +158,26 @@ Data/regionDB/Chlamytina_v5/
 Data/regionDB/Chlamytina_v6/
 ```
 
+### Whole-Genome Alignment and Git LFS
+
+The whole-genome alignment file used for liftover support is provided in the repository through Git LFS:
+
+```bash
+Data/DB/liftover/Cr_3way.hal.gz
+```
+
+We thank the authors of the Chlamydomonas Genome Project v6 resource for kindly providing the whole-genome alignment file used for these liftovers. Reference: Craig et al., 2023, [The Plant Ce>
+
+If you need the HAL file after cloning, install Git LFS and pull the object:
+
+```bash
+git lfs install
+git lfs pull --include="Data/DB/liftover/Cr_3way.hal.gz"
+```
+
+> [!NOTE]
+> Without Git LFS, this path may contain only a small pointer file instead of the real HAL object.
+
 ### RegionDB Collections
 
 Available regionDB collections:
@@ -170,26 +190,6 @@ Available regionDB collections:
 | `CS_N` | Published nitrogen-related chromatin states from Ngan et al. |
 | `CS_S` | Published sulfur-related chromatin states from Ngan et al. |
 | `CS_Chlamytina` | New Chlamytina chromatin states integrating 5mC, 6mA, and MNase/nucleosome information |
-
-### Whole-Genome Alignment and Git LFS
-
-The whole-genome alignment file used for liftover support is provided in the repository through Git LFS:
-
-```bash
-Data/DB/liftover/Cr_3way.hal.gz
-```
-
-We thank the authors of the Chlamydomonas Genome Project v6 resource for kindly providing the whole-genome alignment file used for these liftovers. Reference: Craig et al., 2023, [The Plant Cell](https://doi.org/10.1093/plcell/koac347).
-
-If you need the HAL file after cloning, install Git LFS and pull the object:
-
-```bash
-git lfs install
-git lfs pull --include="Data/DB/liftover/Cr_3way.hal.gz"
-```
-
-> [!NOTE]
-> Without Git LFS, this path may contain only a small pointer file instead of the real HAL object.
 
 ## First Step: DataPrepare
 
