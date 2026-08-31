@@ -1,0 +1,17 @@
+filename	size
+S_CS1.bed	73
+S_CS10.bed	249
+S_CS11.bed	1027
+S_CS12.bed	4
+S_CS13.bed	6
+S_CS14.bed	5287
+S_CS15.bed	410
+S_CS16.bed	25418
+S_CS2.bed	8
+S_CS3.bed	1028
+S_CS4.bed	352
+S_CS5.bed	1158
+S_CS6.bed	662
+S_CS7.bed	2635
+S_CS8.bed	5901
+S_CS9.bed	1343
