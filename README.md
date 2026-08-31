@@ -8,16 +8,16 @@ Chlamytina connects *Chlamydomonas reinhardtii* proteomic or transcriptomic chan
 
 ## Contents
 
-1. [Purpose](#purpose)
-2. [Installation](#installation)
-3. [Inputs and Genome Versions](#inputs-and-genome-data)
-4. [First Step: DataPrepare](#first-step-dataprepare)
-5. [Second Step: LOLAEnrichments](#second-step-lolaenrichments)
-6. [Outputs](#outputs)
-7. [Genome Browser](#genome-browser)
-8. [FAQ](#faq)
+0. [Purpose](#purpose)
+1. [Installation](#installation)
+2. [Inputs and Genome Versions](#inputs-and-genome-data)
+3. [First Step: DataPrepare](#first-step-dataprepare)
+4. [Second Step: LOLAEnrichments](#second-step-lolaenrichments)
+5. [Outputs](#outputs)
+6. [Genome Browser](#genome-browser)
+7. [FAQ](#faq)
 
-## Purpose
+## 0. Purpose
 
 Chlamytina was built around a practical question in Chlamydomonas proteomics and transcriptomics:
 
@@ -25,7 +25,7 @@ Chlamytina was built around a practical question in Chlamydomonas proteomics and
 
 The project combines differential abundance/expression analysis, genomic coordinate conversion, BED export, curated epigenomic databases, and [LOLA](https://code.databio.org/LOLA/) overlap enrichment. The annotations include epigenetic marks, merged marks, published chromatin states, and the Chlamytina chromatin-state model integrating 5mC, 6mA, and MNase/nucleosome information.
 
-## Installation
+## 1. Installation
 
 ### Recommended Conda Installation
 
@@ -111,7 +111,7 @@ exit # Get outside the container
 
 Using this via the time required for the following steps is minimum.
 
-## Inputs and Genome Versions
+## 2. Inputs and Genome Versions
 
 Input data should be a table where:
 
@@ -191,7 +191,7 @@ Available regionDB collections:
 | `CS_S` | Published sulfur-related chromatin states from Ngan et al. |
 | `CS_Chlamytina` | New Chlamytina chromatin states integrating 5mC, 6mA, and MNase/nucleosome information |
 
-## First Step: DataPrepare
+## 3. First Step: DataPrepare
 
 `Code/1_DataPrepare.R` imports abundance/expression tables, optionally runs differential analysis, converts valid IDs to genomic coordinates, creates BED files, writes backgrounds for LOLA, and optionally creates expression/abundance-matched permutation sets.
 
@@ -361,7 +361,7 @@ Rscript --vanilla Code/1_DataPrepare.R \
   -o tmp/out/proteomics_limma
 ```
 
-## Second Step: LOLAEnrichments
+## 4. Second Step: LOLAEnrichments
 
 `Code/2_EnrichmentsLOLA.R` tests query BED files against a selected regionDB collection using LOLA. It writes result tables and heatmaps.
 
@@ -483,7 +483,7 @@ Rscript --vanilla Code/2_EnrichmentsLOLA.R \
   -o tmp/out/transcriptomics_deseq2_perm_lola
 ```
 
-## Outputs
+## 5. Outputs
 
 Chlamytina output depends on the selected options, but files fall into stable groups.
 
@@ -515,7 +515,7 @@ Chlamytina output depends on the selected options, but files fall into stable gr
 
 The permutation-aware table includes target significance and empirical permutation filtering columns, so the target LOLA result and the permutation-filtered interpretation can be inspected separately.
 
-## Genome Browser
+## 6. Genome Browser
 
 Once you got into the docker container (2. Installation - Via Dockerhub) you need to start the apache2 server
 
@@ -525,7 +525,7 @@ service apache2 start
 
 Now you can enjoy the genome browser at http://localhost:8080/jbrowse . The browser will be available while the container is running so as long as ```docker stop chlamytina_rocesv``` is not executed you can acces to jbrowse. We recommend to always select refseq track and one of the .Genes tracks (Nuclear, Mitochondrion, Chloroplast). The epigenomic tracks can be displayed by condition (Control, light ...) or merged (M-).
 
-## FAQ
+## 7. FAQ
 
 ### (Q) What type of inputs can I use?
 
