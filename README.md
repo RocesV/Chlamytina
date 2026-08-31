@@ -37,7 +37,7 @@ cd Chlamytina
 bash Code/0_ChlamytinaInstall.sh
 ```
 
-The installer creates the `chlamytina` conda environment, installs the pinned R/Bioconductor stack, builds the local R conda packages used by Chlamytina, installs JBrowse2, checks the script help, and runs bundled self-tests.
+The installer creates the `chlamytina` conda environment, installs the pinned R/Bioconductor stack, builds the local R conda packages used by Chlamytina, checks the script help, and runs bundled self-tests.
 
 Activate the environment after installation:
 
@@ -55,7 +55,7 @@ conda activate chlamytina
 > CHLAMYTINA_ENV_NAME=chlamytina_test bash Code/0_ChlamytinaInstall.sh
 > ```
 
-A successful reference installation can take up to ~ 10 minutes. The runtime depends on network speed, the state of conda cache state, and machine performance.
+A successful reference installation can take up to ~ 10 minutes. The runtime depends on network speed, the state of conda cache, and machine performance.
 
 The local R conda packages can take several minutes on the first run:
 
@@ -113,12 +113,11 @@ Using this via the time required for the following steps is minimum.
 
 ## Inputs and Genome Data
 
-Input data should be a rectangular table where:
+Input data should be a table where:
 
 - The first column contains feature IDs.
-- Each remaining column contains one biological sample.
+- Each remaining column contains one biological sample protein abundance or trancript-/gene-level expression.
 - Rows are proteins, transcripts, or genes.
-- Columns are abundance, expression, or count-like values.
 
 Supported formats:
 
@@ -126,7 +125,7 @@ Supported formats:
 - `.xls`
 - tab-separated `.txt`
 
-Chlamytina can work with protein-abundance tables, gene- or transcript-level expression tables, and transcriptomic count-like matrices. For transcriptomic workflows, count-scale values are preferred; these may include, for example, Salmon-derived estimates imported with tximport, including matrices generated with countsFromAbundance = "lengthScaledTPM". For count-like RNA-seq data, Chlamytina uses DESeq2, whereas limma provides greater flexibility for continuous or already transformed expression measurements, such as protein abundances or non-count expression metrics. Fractional values may be rounded only when they represent estimated counts.
+Chlamytina can work with protein-abundance tables, gene- or transcript-level expression tables, and transcriptomic count-like matrices. For transcriptomic workflows, count-scale values are preferred; these may include, for example, Salmon-derived estimates imported with tximport, including matrices generated with countsFromAbundance = "lengthScaledTPM". For count-like RNA-seq data, Chlamytina uses DESeq2, whereas limma provides greater flexibility for continuous or already transformed expression measurements, such as protein abundances or non-count expression metrics. Float values may be rounded only when they represent estimated counts.
 
 > [!TIP]
 > Check the bundled test tables before preparing your own input:
@@ -141,7 +140,7 @@ Condition vectors describe the replicate layout. For example:
 
 ### Genome Versions
 
-Chlamytina was originally developed around the version 5 Chlamydomonas annotation branch. Version 6.1 support is also available through versioned annotations, versioned regionDB folders, and liftover-derived resources.
+Chlamytina was originally developed around v5.6 annotation branch. v6.1 support is also available through versioned annotations, regionDB folders, and liftover-derived resources.
 
 Use `-V` / `--version` to select the genome branch:
 
@@ -256,7 +255,7 @@ Options:
 
 	-n CHARACTER, --normalization=CHARACTER
 		Normalization metric used (limma-only). Options: normalizeQuantiles, none
-		It is advisable to set this argument as none and preprocess the data when appropriate [default = none]
+		It is advisable to set this argument as none and preprocess the data when appropriate, for example, using pRocessomics [default = none]
 
 	-m CHARACTER, --de_method=CHARACTER
 		Differential expression method. Options: limma, DESeq2 [default = limma]
@@ -528,11 +527,11 @@ Now you can enjoy the genome browser at http://localhost:8080/jbrowse . The brow
 
 ## FAQ
 
-### What type of inputs can I use?
+### (Q) What type of inputs can I use?
 
 Protein abundance, transcript-level expression, gene-level expression, or count-like transcriptomic matrices. The first column must contain feature IDs and the remaining columns must be samples.
 
-### Which genome version should I use?
+### (Q) Which genome version should I use?
 
 Use the genome version that matches your identifiers and biological question.
 
@@ -549,7 +548,7 @@ Use:
 - `-V v5` for v5.5/v5.6-style identifiers or datasets that need the v5 conversion table.
 - `-V v6` for v6.1 identifiers and v6.1 regionDBs.
 
-### What is the permutation background niche?
+### (Q) What is the permutation background niche?
 
 Permutation background mode is mainly useful when only one differential contrast is available. With one contrast, `Diff_background.bed` is the same set as the query, so it is not informative as a LOLA background.
 
@@ -557,7 +556,7 @@ Permutation mode solves this by generating matched random sets with similar expr
 
 This is especially useful when trying to recover epigenomic signatures linked to the user's data without simply capturing broad expression/abundance-associated epigenetic profiles.
 
-### Which background or universe should I use?
+### (Q) Which background or universe should I use?
 
 Use `Universe.bed` for a broad first-pass annotation background.
 
@@ -569,7 +568,7 @@ Use `Diff_background.bed` when several differential contrasts exist and you want
 
 Use permutation backgrounds when only one differential contrast exists and you want matched comparison sets.
 
-### Why are there different regionDBs?
+### (Q) Why are there different regionDBs?
 
 Different regionDBs test different biological layers:
 
@@ -586,7 +585,7 @@ For interpretation of `CS_Chlamytina`, see:
 Data/DB/CS_Chlamytina_interpretation/
 ```
 
-### How do I list the files inside one regionDB?
+### (Q) How do I list the files inside one regionDB?
 
 Use `--list TRUE` with the selected database and genome version:
 
@@ -594,6 +593,6 @@ Use `--list TRUE` with the selected database and genome version:
 Rscript --vanilla Code/2_EnrichmentsLOLA.R -l TRUE -r CS_Chlamytina -V v5
 ```
 
-### What happens if many differential contrasts are generated?
+### (Q) What happens if many differential contrasts are generated?
 
 Individual contrast BEDs and differential tables are still generated. Differential nVennR intersections are skipped above 10 contrast sets, so `diff_intersection.svg` and `Diff_uniq_*.bed` are not produced in that case.
