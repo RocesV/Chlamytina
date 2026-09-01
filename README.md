@@ -80,7 +80,7 @@ docker pull rocesv/chlamytina
 Build the container using the image pulled. Because the [jbrowse](https://jbrowse.org/) inside the container is running in apache2 server, an empty port from the host (8080) need to be connected to container's 80 port. In order to share data between host and the container it is advisable to define a volume (-v) linking a host directory to /home/rocesv/Documents/Transfer folder.
 
 ```bash
-docker run -t -i -d --name chlamytina_rocesv -p 8080:80 -v <ABSOLUTE PATH TO HOST SHARED DIRECTORY>:/home/rocesv/Documents/Transfer rocesv/chamytina bash
+docker run -t -i -d --name chlamytina_rocesv -p 8080:80 -v <ABSOLUTE PATH TO HOST SHARED DIRECTORY>:/home/rocesv/Documents/Transfer rocesv/chlamytina bash
 ```
 
 Check docker container is running
