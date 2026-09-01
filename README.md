@@ -8,14 +8,14 @@ Chlamytina connects *Chlamydomonas reinhardtii* proteomic or transcriptomic chan
 
 ## Contents
 
-0. [Purpose](#purpose)
-1. [Installation](#installation)
-2. [Inputs and Genome Versions](#inputs-and-genome-data)
-3. [First Step: DataPrepare](#first-step-dataprepare)
-4. [Second Step: LOLAEnrichments](#second-step-lolaenrichments)
-5. [Outputs](#outputs)
-6. [Genome Browser](#genome-browser)
-7. [FAQ](#faq)
+0. [Purpose](#0-purpose)
+1. [Installation](#1-installation)
+2. [Inputs and Genome Versions](#2-inputs-and-genome-versions)
+3. [First Step: DataPrepare](#3-first-step-dataprepare)
+4. [Second Step: LOLAEnrichments](#4-second-step-lolaenrichments)
+5. [Outputs](#5-outputs)
+6. [Genome Browser](#6-genome-browser)
+7. [FAQ](#7-faq)
 
 ## 0. Purpose
 
@@ -537,7 +537,7 @@ The permutation-aware table includes target significance and empirical permutati
 
 ## 6. Genome Browser
 
-The Docker image includes an Apache-served genome browser (2. Installation - Via Dockerhub) for the Chlamydomonas reinhardtii v5 genome data used by Chlamytina. After starting the docker container, open:
+The Docker image includes an Apache-served genome browser [1. Installation - Via Dockerhub](#installation) for the Chlamydomonas reinhardtii v5 genome data used by Chlamytina. After starting the docker container, open:
 
 ```bash
 http://localhost:8080/jbrowse/
