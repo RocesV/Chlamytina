@@ -537,7 +537,7 @@ The permutation-aware table includes target significance and empirical permutati
 
 ## 6. Genome Browser
 
-The Docker image includes an Apache-served genome browser [1. Installation - Via Dockerhub](#installation) for the Chlamydomonas reinhardtii v5 genome data used by Chlamytina. After starting the docker container, open:
+The Docker image includes an Apache-served genome browser [1. Installation - Via Dockerhub](#1-installation) for the Chlamydomonas reinhardtii v5 genome data used by Chlamytina. After starting the docker container, open:
 
 ```bash
 http://localhost:8080/jbrowse/
