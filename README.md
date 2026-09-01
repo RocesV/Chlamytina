@@ -71,45 +71,65 @@ Code/.chlamytina-install-logs/
 
 ### Via Dockerhub (genome browser available)
 
-Install Docker or Docker Desktop as follow https://docs.docker.com/ . This is the only way to get access to **genome browser**. Pull rocesv/chlamytina image from dockerhub
+Install [Docker or Docker Desktop](https://docs.docker.com/) first. The docker image includes Chlamytina utilities and the **genome browser**. Pull the image from dockhub:
 
 ```bash
-docker pull rocesv/chlamytina
+docker pull rocesv/chlamytina:latest
 ```
 
-Build the container using the image pulled. Because the [jbrowse](https://jbrowse.org/) inside the container is running in apache2 server, an empty port from the host (8080) need to be connected to container's 80 port. In order to share data between host and the container it is advisable to define a volume (-v) linking a host directory to /home/rocesv/Documents/Transfer folder.
+Create a host folder for transferring files between your computer and the container, for example:
 
 ```bash
-docker run -t -i -d --name chlamytina_rocesv -p 8080:80 -v <ABSOLUTE PATH TO HOST SHARED DIRECTORY>:/home/rocesv/Documents/Transfer rocesv/chlamytina bash
+mkdir -p "$HOME/chlamytina-transfer"
 ```
 
-Check docker container is running
+Start the container. Port 8080 on your computer is mapped to port 80 inside the container. Make sure port 8080 is available on your computer; if it is not, change it to an available port.
+
+```bash
+docker run -d --name chlamytina_rocesv \
+  -p 8080:80 \
+  -v "$HOME/chlamytina-transfer":/home/rocesv/Documents/Transfer \
+  rocesv/chlamytina:latest
+```
+
+Check that the container is running:
 
 ```bash
 docker ps -a
 ```
 
-Get inside the container
+If the STATUS is Up, open the genome browser using:
 
 ```bash
-docker exec -i -t chlamytina_rocesv bash
+http://localhost:8080/jbrowse/
 ```
 
-Now you should see your container user like root@6a32e10fc951:/home#. Change directory to Chlamytina
+The browser is served automatically through Apache. You do not need to enter the container or manually start Apache for browser use. To use the docker to also run Chlamytina scripts inside the container:
 
 ```bash
-cd Chlamytina/
+docker exec -it chlamytina_rocesv bash
+cd /home/Chlamytina
 ```
 
-Brief docker tutorial:
+> [!NOTE]
+> The chlamytina conda environment is activated automatically when entering the container. If your prompt does not show (chlamytina), run: conda activate chlamytina
+
+The shared transfer directory is:
 
 ```bash
-docker stop chlamytina_rocesv # Stop the container
+Host computer: $HOME/chlamytina-transfer
+Inside Docker: /home/rocesv/Documents/Transfer
+```
+
+Write output files to /home/rocesv/Documents/Transfer inside docker if you want to access them from the host computer. Brief docker tutorial:
+
+```bash
+docker stop chlamytina_rocesv # Stop the container as well as the genome browser connection
 docker start chlamytina_rocesv # Start the container
 exit # Get outside the container
 ```
 
-Using this via the time required for the following steps is minimum.
+Using docker reduces the installation time needed before running Chlamytina analyses and is currently the easiest way to use the bundled genome browser.
 
 ## 2. Inputs and Genome Versions
 
@@ -517,13 +537,23 @@ The permutation-aware table includes target significance and empirical permutati
 
 ## 6. Genome Browser
 
-Once you got into the docker container (2. Installation - Via Dockerhub) you need to start the apache2 server
+The Docker image includes an Apache-served genome browser (2. Installation - Via Dockerhub) for the Chlamydomonas reinhardtii v5 genome data used by Chlamytina. After starting the docker container, open:
 
 ```bash
-service apache2 start
+http://localhost:8080/jbrowse/
 ```
 
-Now you can enjoy the genome browser at http://localhost:8080/jbrowse . The browser will be available while the container is running so as long as ```docker stop chlamytina_rocesv``` is not executed you can acces to jbrowse. We recommend to always select refseq track and one of the .Genes tracks (Nuclear, Mitochondrion, Chloroplast). The epigenomic tracks can be displayed by condition (Control, light ...) or merged (M-).
+The browser opens directly in a linear genome view with default tracks already loaded. The track selector is also opened by default so additional tracks can be enabled. The browser remains available while the container is running. To stop it and free port 8080:
+
+```bash
+docker stop chlamytina_rocesv
+```
+
+To restart the same container:
+
+```bash
+docker start chlamytina_rocesv
+```
 
 ## 7. FAQ
 
@@ -590,7 +620,7 @@ Data/DB/CS_Chlamytina_interpretation/
 Use `--list TRUE` with the selected database and genome version:
 
 ```bash
-Rscript --vanilla Code/2_EnrichmentsLOLA.R -l TRUE -r CS_Chlamytina -V v5
+Rscript --vanilla Code/2_EnrichmentsLOLA.R -l TRUE -r CS_Chlamytina -V v6
 ```
 
 ### (Q) What happens if many differential contrasts are generated?
